@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.evernote.oauth.consumer.SimpleOAuthRequest;
 
-public class EvernoteActivity extends AbstractEvernoteActivity {
-	private static final String TAG = EvernoteActivity.class.getSimpleName();
+public class OAuthActivity extends AbstractEvernoteActivity {
+	private static final String TAG = OAuthActivity.class.getSimpleName();
 
 	 private static final String consumerKey = "YOUR_CONSUMER_KEY";
 	 private static final String consumerSecret = "YOUR_CONSUMER_SECRET";
@@ -47,14 +47,12 @@ public class EvernoteActivity extends AbstractEvernoteActivity {
 				SimpleOAuthRequest oauthRequestor = getSimpleOAuthRequest();
 				oauthRequestor.setParameter("oauth_callback", CALLBACK_URL);
 
-				Map<String, String> reply = null;
 				try {
-					reply = new OauthRequestTask(EvernoteActivity.this)
+					Map<String, String> reply = new OauthRequestTask(OAuthActivity.this)
 							.execute(oauthRequestor).get();
 					if (reply != null) {
-						EvernoteActivity.this.requestToken = reply
-								.get("oauth_token");
-						EvernoteActivity.this.shardId = reply.get("edam_shard");
+						OAuthActivity.this.requestToken = reply.get("oauth_token");
+						OAuthActivity.this.shardId = reply.get("edam_shard");
 
 						updateScreen();
 
@@ -77,7 +75,7 @@ public class EvernoteActivity extends AbstractEvernoteActivity {
 		this.noteBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(EvernoteActivity.this, NoteActivity.class);
+				Intent i = new Intent(OAuthActivity.this, NoteActivity.class);
 				i.putExtra(ACCESS_TOKEN, accessToken);
 				i.putExtra(SHARD_ID, shardId);
 				startActivity(i);
@@ -95,7 +93,7 @@ public class EvernoteActivity extends AbstractEvernoteActivity {
 				SimpleOAuthRequest oauthRequestor = getSimpleOAuthRequest();
 				oauthRequestor.setParameter("oauth_token", requestToken);
 				oauthRequestor.setParameter("oauth_verifier", verifier);
-				reply = new OauthRequestTask(EvernoteActivity.this).execute(oauthRequestor).get();
+				reply = new OauthRequestTask(OAuthActivity.this).execute(oauthRequestor).get();
 				Log.d(TAG, "Reply: " + reply);
 				this.accessToken = reply.get("oauth_token");
 				this.shardId = reply.get("edam_shard");
