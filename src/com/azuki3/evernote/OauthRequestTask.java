@@ -10,13 +10,13 @@ import android.util.Log;
 
 import com.evernote.oauth.consumer.SimpleOAuthRequest;
 
-public class OauthRequestTask extends AsyncTask<SimpleOAuthRequest, Void, Map<String, String>> {
+public class OAuthRequestTask extends AsyncTask<SimpleOAuthRequest, Void, Map<String, String>> {
 	
 	private static final String TAG = "OauthRequestTask";
 	private Context context;
 	private ProgressDialog dialog;
 	
-	public OauthRequestTask(Context context){
+	public OAuthRequestTask(Context context){
 		this.context = context;
 	}
 	

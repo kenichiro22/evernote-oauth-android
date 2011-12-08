@@ -48,7 +48,7 @@ public class OAuthActivity extends AbstractEvernoteActivity {
 				oauthRequestor.setParameter("oauth_callback", CALLBACK_URL);
 
 				try {
-					Map<String, String> reply = new OauthRequestTask(OAuthActivity.this)
+					Map<String, String> reply = new OAuthRequestTask(OAuthActivity.this)
 							.execute(oauthRequestor).get();
 					if (reply != null) {
 						OAuthActivity.this.requestToken = reply.get("oauth_token");
@@ -93,7 +93,7 @@ public class OAuthActivity extends AbstractEvernoteActivity {
 				SimpleOAuthRequest oauthRequestor = getSimpleOAuthRequest();
 				oauthRequestor.setParameter("oauth_token", requestToken);
 				oauthRequestor.setParameter("oauth_verifier", verifier);
-				reply = new OauthRequestTask(OAuthActivity.this).execute(oauthRequestor).get();
+				reply = new OAuthRequestTask(OAuthActivity.this).execute(oauthRequestor).get();
 				Log.d(TAG, "Reply: " + reply);
 				this.accessToken = reply.get("oauth_token");
 				this.shardId = reply.get("edam_shard");
